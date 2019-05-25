@@ -1,0 +1,7 @@
+pbTrivia/node_modules/**/*
+pbTrivia/.expo/*
+pbTrivia/npm-debug.*
+pbTrivia/*.jks
+pbTrivia/*.p12
+pbTrivia/*.key
+pbTrivia/*.mobileprovision
