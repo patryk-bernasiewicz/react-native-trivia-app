@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Button, Text, StyleSheet } from 'react-native';
-import CardFlip from 'react-native-card-flip';
 
 import { AllHtmlEntities as Entities } from 'html-entities';
 
@@ -8,26 +7,11 @@ const entities = new Entities();
 
 class QuestionItem extends Component {
   state = {
-    card: null,
     answered: false
   };
 
   constructor(props) {
     super(props);
-  }
-
-  setNativeProps = nativeProps => {
-    this._card.setNativeProps(nativeProps);
-  };
-
-  componentDidMount() {}
-
-  shouldComponentUpdate() {
-    if (!this._card) {
-      return true;
-    } else {
-      this._card.flip();
-    }
   }
 
   render() {
