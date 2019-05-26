@@ -11,6 +11,9 @@ const HelloScreen = ({ onGameStart, triviaFinished, error }) => {
   return (
     <View style={styles.view}>
       <Text style={styles.text}>Trivia!</Text>
+      <Text style={styles.description}>
+        Answer 10 questions and find out how much you know about random stuff.
+      </Text>
       <Button onPress={() => onGameStart()} title='Start Game' />
       {triviaFinished && <Results />}
       {error && <ErrorMessage error={error} />}
@@ -46,8 +49,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   text: {
-    fontSize: 20,
-    fontWeight: 'bold'
+    color: '#ffffff',
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 8
+  },
+  description: {
+    color: '#ffffff',
+    textAlign: 'center',
+    maxWidth: 280,
+    marginBottom: 16
   },
   results: {
     fontSize: 18,

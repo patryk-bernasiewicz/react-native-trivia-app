@@ -27,7 +27,7 @@ class TriviaScreen extends Component {
     const { loading, questions, currentQuestion } = this.props;
 
     if (loading) {
-      return <Text>Loading...</Text>;
+      return <Text style={styles.loading}>Loading...</Text>;
     }
 
     if (!questions) {
@@ -39,17 +39,15 @@ class TriviaScreen extends Component {
     }
 
     return (
-      <ScrollView>
-        <View style={styles.view}>
-          <Text style={{ textAlign: 'center' }}>
-            Question {currentQuestion + 1}/{questions.length}
-          </Text>
-          <QuestionItem
-            question={questions[currentQuestion]}
-            onAnswer={this.onAnswer}
-          />
-        </View>
-      </ScrollView>
+      <View style={styles.view}>
+        <Text style={styles.counter}>
+          Question {currentQuestion + 1}/{questions.length}
+        </Text>
+        <QuestionItem
+          question={questions[currentQuestion]}
+          onAnswer={this.onAnswer}
+        />
+      </View>
     );
   }
 }
@@ -77,11 +75,22 @@ export default connect(
 
 const styles = StyleSheet.create({
   view: {
+    flex: 1,
     fontSize: 20,
     fontWeight: 'bold',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 40
+  },
+  counter: {
+    color: '#ffffff',
+    fontSize: 14,
+    marginBottom: 4
+  },
+  loading: {
+    color: '#ffffff',
+    fontSize: 22,
+    textAlign: 'center'
   }
 });

@@ -49,10 +49,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   cardFace: {
+    backgroundColor: 'rgba(255, 255, 255, .7)',
+    borderColor: 'rgba(0, 0, 0, .6)',
     borderRadius: 8,
-    borderWidth: 2,
+    borderWidth: 4,
     width: 350,
-    height: 150,
+    height: 180,
     padding: 20
   },
   top: {

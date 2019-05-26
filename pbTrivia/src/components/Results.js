@@ -5,9 +5,15 @@ import PropTypes from 'prop-types';
 
 const Results = ({ correctAnswers }) => {
   return (
-    <View style={styles.result}>
-      <Text>{correctAnswers > 4 ? 'Congratulations!' : 'Sorry...'}</Text>
-      <Text>You answered correctly {correctAnswers} out of 10 questions.</Text>
+    <View>
+      <View style={styles.results}>
+        <Text style={styles.heading}>
+          {correctAnswers > 4 ? 'Congratulations!' : 'Sorry...'}
+        </Text>
+        <Text style={styles.followUp}>
+          You answered correctly {correctAnswers} out of 10 questions.
+        </Text>
+      </View>
     </View>
   );
 };
@@ -31,9 +37,22 @@ export default connect(
 
 const styles = StyleSheet.create({
   results: {
-    fontSize: 18,
+    marginTop: 20,
+    width: 220,
+    borderWidth: 2,
+    borderColor: 'rgba(0, 0, 0, .6)',
+    borderRadius: 8,
+    backgroundColor: 'rgba(255, 255, 255, .7)',
+    padding: 8
+  },
+  heading: {
+    fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 20
+    textAlign: 'center'
+  },
+  followUp: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 });

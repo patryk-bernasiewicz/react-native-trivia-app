@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { View, ImageBackground, StyleSheet } from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -40,7 +40,13 @@ class TriviaApp extends Component {
 
     return (
       <Provider store={store}>
-        <View style={styles.container}>{screen}</View>
+        <ImageBackground
+          source={require('../assets/background.jpg')}
+          imageStyle={{ resizeMode: 'cover' }}
+          style={styles.backgroundContainer}
+        >
+          {screen}
+        </ImageBackground>
       </Provider>
     );
   }
@@ -70,5 +76,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column'
+  },
+  backgroundContainer: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1
   }
 });
