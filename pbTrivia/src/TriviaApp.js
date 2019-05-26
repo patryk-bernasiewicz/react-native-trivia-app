@@ -1,28 +1,47 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { createStore } from 'redux';
+import { Provider, connect } from 'react-redux';
+import HelloScreen from './components/HelloScreen';
+import reducer from './reducer';
+
+const store = createStore(reducer);
 
 class TriviaApp extends Component {
+  state = {
+    triviaStarted: false
+  };
+
+  constructor(props) {
+    super(props);
+    store.subscribe(() => {
+      this.setState({
+        triviaStarted: store.getState().triviaStarted
+      });
+    });
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={triviaStyles.text}>Trivia!</Text>
+      <Provider store={store}>
+        <View style={styles.container}>
+          {!this.state.triviaStarted && <HelloScreen />}
+          {this.state.triviaStarted && <Text>Trivia started!</Text>}
         </View>
-      </View>
+      </Provider>
     );
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     triviaStarted: state.triviaStarted
   };
-}
+};
 
-function mapDispatchToProps() {
+const mapDispatchToProps = () => {
   return {};
-}
+};
 
 export default connect(
   mapStateToProps,
@@ -32,15 +51,9 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
-
-const triviaStyles = StyleSheet.create({
-  text: {
-    fontSize: 42,
-    fontWeight: "bold"
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column'
   }
 });
