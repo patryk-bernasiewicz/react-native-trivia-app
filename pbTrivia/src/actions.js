@@ -1,5 +1,6 @@
 export const START_GAME = 'START_GAME';
 export const END_GAME = 'END_GAME';
+export const RESET = 'RESET';
 
 export const FETCH_QUESTIONS_SUCCESS = 'FETCH_QUESTIONS_SUCCESS';
 export const FETCH_QUESTIONS_ERROR = 'FETCH_QUESTIONS_ERROR';
@@ -35,10 +36,14 @@ export const fetchQuestionsError = error => ({
 });
 
 export const answerQuestion = (question, answer) => {
+  const payload = {
+    question: question.question,
+    answer: answer
+  };
   if (answer === question.correct_answer) {
-    return { type: ANSWER_CORRECT };
+    return { type: ANSWER_CORRECT, payload };
   } else {
-    return { type: ANSWER_INCORRECT };
+    return { type: ANSWER_INCORRECT, payload };
   }
 };
 
@@ -48,4 +53,8 @@ export const startTrivia = () => {
 
 export const finishTrivia = () => {
   return { type: END_GAME };
+};
+
+export const reset = () => {
+  return { type: RESET };
 };

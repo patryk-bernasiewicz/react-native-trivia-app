@@ -4,7 +4,8 @@ import {
   FETCH_QUESTIONS_SUCCESS,
   FETCH_QUESTIONS_ERROR,
   ANSWER_CORRECT,
-  ANSWER_INCORRECT
+  ANSWER_INCORRECT,
+  RESET
 } from './actions';
 
 const initialState = {
@@ -13,7 +14,7 @@ const initialState = {
   triviaFinished: false,
   currentQuestion: null,
   questions: [],
-  correctAnswers: 0
+  answers: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,6 +25,7 @@ const reducer = (state = initialState, action) => {
         loading: true,
         triviaStarted: true,
         triviaFinished: false,
+        answers: [],
         error: null
       };
     case END_GAME:
@@ -52,14 +54,31 @@ const reducer = (state = initialState, action) => {
     case ANSWER_CORRECT:
       return {
         ...state,
-        correctAnswers: state.correctAnswers + 1,
+        answers: [
+          ...state.answers,
+          {
+            question: action.payload.question,
+            answer: action.payload.answer,
+            valid: true
+          }
+        ],
         currentQuestion: state.currentQuestion + 1
       };
     case ANSWER_INCORRECT:
       return {
         ...state,
+        answers: [
+          ...state.answers,
+          {
+            question: action.payload.question,
+            answer: action.payload.answer,
+            valid: false
+          }
+        ],
         currentQuestion: state.currentQuestion + 1
       };
+    case RESET:
+      return initialState;
     default:
       return state;
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import { AllHtmlEntities as Entities } from 'html-entities';
 
 import { fetchQuestions, answerQuestion, finishTrivia } from '../actions';
 
@@ -15,8 +16,7 @@ class TriviaScreen extends Component {
   }
 
   onAnswer = (question, answer) => {
-    const final =
-      this.props.currentQuestion + 1 === this.props.questions.length;
+    const final = this.props.currentQuestion + 1 >= this.props.questions.length;
     this.props.dispatch(answerQuestion(question, answer));
     if (final) {
       this.props.dispatch(finishTrivia());
@@ -25,6 +25,9 @@ class TriviaScreen extends Component {
 
   render() {
     const { loading, questions, currentQuestion } = this.props;
+    const entities = new Entities();
+
+    const question = questions[currentQuestion];
 
     if (loading) {
       return <Text style={styles.loading}>Loading...</Text>;
@@ -40,13 +43,13 @@ class TriviaScreen extends Component {
 
     return (
       <View style={styles.view}>
-        <Text style={styles.counter}>
-          Question {currentQuestion + 1}/{questions.length}
+        <Text style={styles.category}>
+          {entities.decode(question.category)}
         </Text>
-        <QuestionItem
-          question={questions[currentQuestion]}
-          onAnswer={this.onAnswer}
-        />
+        <QuestionItem question={question} onAnswer={this.onAnswer} />
+        <Text style={styles.counter}>
+          {currentQuestion + 1} of {questions.length}
+        </Text>
       </View>
     );
   }
@@ -87,6 +90,11 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 14,
     marginBottom: 4
+  },
+  category: {
+    color: '#ffffff',
+    fontSize: 16,
+    marginBottom: 8
   },
   loading: {
     color: '#ffffff',

@@ -4,19 +4,18 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { startTrivia } from '../actions';
 
-import Results from './Results';
 import ErrorMessage from './ErrorMessage';
 
 const HelloScreen = ({ onGameStart, triviaFinished, error }) => {
   return (
     <View style={styles.view}>
-      <Text style={styles.text}>Trivia!</Text>
+      <Text style={styles.text}>Welcome to the Trivia Challenge!</Text>
       <Text style={styles.description}>
-        Answer 10 questions and find out how much you know about random stuff.
+        You will be presented with 10 True or False questions.
       </Text>
-      <Button onPress={() => onGameStart()} title='Start Game' />
-      {triviaFinished && <Results />}
+      <Text style={styles.description}>Can you score 100%?</Text>
       {error && <ErrorMessage error={error} />}
+      <Button onPress={() => onGameStart()} title='BEGIN' />
     </View>
   );
 };
@@ -50,14 +49,15 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#ffffff',
+    textAlign: 'center',
     fontSize: 32,
     fontWeight: 'bold',
-    marginBottom: 8
+    marginBottom: 20
   },
   description: {
     color: '#ffffff',
     textAlign: 'center',
-    maxWidth: 280,
+    maxWidth: 250,
     marginBottom: 16
   },
   results: {

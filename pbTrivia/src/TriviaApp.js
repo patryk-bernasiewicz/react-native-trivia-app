@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ImageBackground, StyleSheet } from 'react-native';
+import { Text, ImageBackground, StyleSheet } from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -8,12 +8,14 @@ import reducer from './reducer';
 
 import HelloScreen from './components/HelloScreen';
 import TriviaScreen from './components/TriviaScreen';
+import ResultsScreen from './components/ResultsScreen';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
 class TriviaApp extends Component {
   state = {
     triviaStarted: false,
+    triviaFinished: false,
     currentQuestion: null,
     error: null
   };
@@ -21,18 +23,22 @@ class TriviaApp extends Component {
   constructor(props) {
     super(props);
     store.subscribe(() => {
+      const state = store.getState();
       this.setState({
         ...this.state,
-        triviaStarted: store.getState().triviaStarted
+        triviaStarted: state.triviaStarted,
+        triviaFinished: state.triviaFinished
       });
     });
   }
 
   render() {
-    const { triviaStarted, error } = this.state;
+    const { triviaStarted, triviaFinished, error } = this.state;
     let screen;
 
-    if (triviaStarted && !error) {
+    if (triviaFinished) {
+      screen = <ResultsScreen />;
+    } else if (!error && triviaStarted) {
       screen = <TriviaScreen />;
     } else {
       screen = <HelloScreen />;
@@ -52,22 +58,7 @@ class TriviaApp extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    triviaStarted: state.triviaStarted,
-    currentQuestion: state.currentQuestion,
-    error: state.error
-  };
-};
-
-const mapDispatchToProps = () => {
-  return {};
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TriviaApp);
+export default TriviaApp;
 
 const styles = StyleSheet.create({
   container: {
