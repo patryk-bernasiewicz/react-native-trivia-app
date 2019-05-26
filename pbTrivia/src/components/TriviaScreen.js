@@ -24,17 +24,7 @@ class TriviaScreen extends Component {
   };
 
   render() {
-    const {
-      loading,
-      questions,
-      currentQuestion,
-      error,
-      triviaFinished
-    } = this.props;
-
-    if (error) {
-      return <Text>Error! {error.message}</Text>;
-    }
+    const { loading, questions, currentQuestion } = this.props;
 
     if (loading) {
       return <Text>Loading...</Text>;

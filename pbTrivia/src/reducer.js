@@ -39,6 +39,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        triviaStarted: false,
         error: action.payload.error
       };
     case FETCH_QUESTIONS_SUCCESS:

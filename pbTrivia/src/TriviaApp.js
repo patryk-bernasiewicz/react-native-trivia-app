@@ -14,23 +14,25 @@ const store = createStore(reducer, applyMiddleware(thunk));
 class TriviaApp extends Component {
   state = {
     triviaStarted: false,
-    currentQuestion: null
+    currentQuestion: null,
+    error: null
   };
 
   constructor(props) {
     super(props);
     store.subscribe(() => {
       this.setState({
+        ...this.state,
         triviaStarted: store.getState().triviaStarted
       });
     });
   }
 
   render() {
-    const { triviaStarted } = this.state;
+    const { triviaStarted, error } = this.state;
     let screen;
 
-    if (triviaStarted) {
+    if (triviaStarted && !error) {
       screen = <TriviaScreen />;
     } else {
       screen = <HelloScreen />;
@@ -48,7 +50,7 @@ const mapStateToProps = state => {
   return {
     triviaStarted: state.triviaStarted,
     currentQuestion: state.currentQuestion,
-    correctAnswers: state.correctAnswers
+    error: state.error
   };
 };
 

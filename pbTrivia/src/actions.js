@@ -15,7 +15,11 @@ export const fetchQuestions = () => {
       .then(res => res.json())
       .then(json => dispatch(fetchQuestionsSuccess(json.results)))
       .catch(error => {
-        dispatch(fetchQuestionsError(error));
+        dispatch(
+          fetchQuestionsError(
+            'Could not fetch the Trivia questions. Check your network connection or try again later.'
+          )
+        );
       });
   };
 };

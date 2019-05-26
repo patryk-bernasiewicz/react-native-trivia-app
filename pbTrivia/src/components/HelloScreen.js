@@ -1,17 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { startTrivia } from '../actions';
 
 import Results from './Results';
+import ErrorMessage from './ErrorMessage';
 
-const HelloScreen = ({ onGameStart, triviaFinished }) => {
+const HelloScreen = ({ onGameStart, triviaFinished, error }) => {
   return (
     <View style={styles.view}>
       <Text style={styles.text}>Trivia!</Text>
       <Button onPress={() => onGameStart()} title='Start Game' />
       {triviaFinished && <Results />}
+      {error && <ErrorMessage error={error} />}
     </View>
   );
 };
@@ -23,7 +25,8 @@ HelloScreen.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    triviaFinished: state.triviaFinished
+    triviaFinished: state.triviaFinished,
+    error: state.error
   };
 };
 
