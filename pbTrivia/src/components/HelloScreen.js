@@ -1,22 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { START_GAME, END_GAME } from '../actions';
+import { startTrivia } from '../actions';
 
-const HelloScreen = ({ onGameStart, triviaFinished, correctAnswers }) => {
+import Results from './Results';
+
+const HelloScreen = ({ onGameStart, triviaFinished }) => {
   return (
     <View style={styles.view}>
       <Text style={styles.text}>Trivia!</Text>
       <Button onPress={() => onGameStart()} title='Start Game' />
-      {triviaFinished && correctAnswers && (
-        <View style={styles.results}>
-          <Text>{correctAnswers > 4 ? 'Congratulations!' : 'Sorry...'}</Text>
-          <Text>
-            You answered correctly {correctAnswers} out of 10 questions.
-          </Text>
-        </View>
-      )}
+      {triviaFinished && <Results />}
     </View>
   );
 };
@@ -28,16 +23,12 @@ HelloScreen.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    triviaFinished: state.triviaFinished,
-    correctAnswers: state.correctAnswers
+    triviaFinished: state.triviaFinished
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  onGameStart: () => {
-    dispatch({ type: START_GAME });
-  },
-  onGameEnd: () => dispatch({ type: END_GAME })
+  onGameStart: () => dispatch(startTrivia())
 });
 
 export default connect(

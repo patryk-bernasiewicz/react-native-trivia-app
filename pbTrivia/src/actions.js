@@ -38,6 +38,10 @@ export const answerQuestion = (question, answer) => {
   }
 };
 
+export const startTrivia = () => {
+  return { type: START_GAME };
+};
+
 export const finishTrivia = () => {
   return { type: END_GAME };
 };
