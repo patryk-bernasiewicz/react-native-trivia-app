@@ -4,31 +4,37 @@ import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { START_GAME, END_GAME } from '../actions';
 
-const HelloScreen = ({ onGameStart, onGameEnd, triviaStarted }) => {
-  console.log('Trivia started: ', triviaStarted);
+const HelloScreen = ({ onGameStart, triviaFinished, correctAnswers }) => {
   return (
     <View style={styles.view}>
       <Text style={styles.text}>Trivia!</Text>
       <Button onPress={() => onGameStart()} title='Start Game' />
+      {triviaFinished && correctAnswers && (
+        <View style={styles.results}>
+          <Text>{correctAnswers > 4 ? 'Congratulations!' : 'Sorry...'}</Text>
+          <Text>
+            You answered correctly {correctAnswers} out of 10 questions.
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
 
 HelloScreen.propTypes = {
   onGameStart: PropTypes.func.isRequired,
-  onGameEnd: PropTypes.func.isRequired,
-  triviaStarted: PropTypes.bool.isRequired
+  triviaFinished: PropTypes.bool
 };
 
 const mapStateToProps = state => {
   return {
-    triviaStarted: state.triviaStarted
+    triviaFinished: state.triviaFinished,
+    correctAnswers: state.correctAnswers
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   onGameStart: () => {
-    console.log('Dispatch action');
     dispatch({ type: START_GAME });
   },
   onGameEnd: () => dispatch({ type: END_GAME })
@@ -48,5 +54,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: 'bold'
+  },
+  results: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 });

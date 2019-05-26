@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
-import HelloScreen from './components/HelloScreen';
+import thunk from 'redux-thunk';
+
 import reducer from './reducer';
 
-const store = createStore(reducer);
+import HelloScreen from './components/HelloScreen';
+import TriviaScreen from './components/TriviaScreen';
+
+const store = createStore(reducer, applyMiddleware(thunk));
 
 class TriviaApp extends Component {
   state = {
-    triviaStarted: false
+    triviaStarted: false,
+    currentQuestion: null
   };
 
   constructor(props) {
@@ -22,12 +27,18 @@ class TriviaApp extends Component {
   }
 
   render() {
+    const { triviaStarted } = this.state;
+    let screen;
+
+    if (triviaStarted) {
+      screen = <TriviaScreen />;
+    } else {
+      screen = <HelloScreen />;
+    }
+
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          {!this.state.triviaStarted && <HelloScreen />}
-          {this.state.triviaStarted && <Text>Trivia started!</Text>}
-        </View>
+        <View style={styles.container}>{screen}</View>
       </Provider>
     );
   }
@@ -35,7 +46,9 @@ class TriviaApp extends Component {
 
 const mapStateToProps = state => {
   return {
-    triviaStarted: state.triviaStarted
+    triviaStarted: state.triviaStarted,
+    currentQuestion: state.currentQuestion,
+    correctAnswers: state.correctAnswers
   };
 };
 
