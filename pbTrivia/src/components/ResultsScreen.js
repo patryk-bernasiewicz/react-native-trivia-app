@@ -51,7 +51,8 @@ const ResultsScreen = ({ answers, questions, resetGame }) => {
 
 ResultsScreen.propTypes = {
   questions: PropTypes.array.isRequired,
-  answers: PropTypes.array.isRequired
+  answers: PropTypes.array.isRequired,
+  resetGame: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -70,7 +71,7 @@ export default connect(
   mapDispatchToProps
 )(ResultsScreen);
 
-const styles = {
+const styles = StyleSheet.create({
   list: {
     paddingTop: 10,
     paddingLeft: 30,
@@ -97,4 +98,4 @@ const styles = {
     borderColor: '#ff4422',
     backgroundColor: '#ffdddd'
   }
-};
+});

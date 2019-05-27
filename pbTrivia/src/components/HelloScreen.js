@@ -6,7 +6,7 @@ import { startTrivia } from '../actions';
 
 import ErrorMessage from './ErrorMessage';
 
-const HelloScreen = ({ onGameStart, triviaFinished, error }) => {
+const HelloScreen = ({ onGameStart, error }) => {
   return (
     <View style={styles.view}>
       <Text style={styles.text}>Welcome to the Trivia Challenge!</Text>
@@ -22,7 +22,7 @@ const HelloScreen = ({ onGameStart, triviaFinished, error }) => {
 
 HelloScreen.propTypes = {
   onGameStart: PropTypes.func.isRequired,
-  triviaFinished: PropTypes.bool
+  error: PropTypes.object
 };
 
 const mapStateToProps = state => {

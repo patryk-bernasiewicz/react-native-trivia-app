@@ -1,43 +1,31 @@
-import React, { Component } from 'react';
-import { View, TouchableOpacity, Button, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Button, Text, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { AllHtmlEntities as Entities } from 'html-entities';
 
 const entities = new Entities();
 
-class QuestionItem extends Component {
-  state = {
-    answered: false
-  };
-
-  constructor(props) {
-    super(props);
+const QuestionItem = ({ onAnswer, question }) => {
+  if (!question) {
+    return <Text>No Question</Text>;
   }
 
-  render() {
-    const { question } = this.props;
-
-    if (!question) {
-      return <Text>No Question</Text>;
-    }
-
-    return (
-      <View style={{ ...styles.cardFace }}>
-        <Text style={styles.top}>{entities.decode(question.question)}</Text>
-        <View style={styles.bottom}>
-          <Button
-            title='True'
-            onPress={() => this.props.onAnswer(question, 'True')}
-          />
-          <Button
-            title='False'
-            onPress={() => this.props.onAnswer(question, 'False')}
-          />
-        </View>
+  return (
+    <View style={{ ...styles.cardFace }}>
+      <Text style={styles.top}>{entities.decode(question.question)}</Text>
+      <View style={styles.bottom}>
+        <Button title='True' onPress={() => onAnswer(question, 'True')} />
+        <Button title='False' onPress={() => onAnswer(question, 'False')} />
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
+
+QuestionItem.propTypes = {
+  onAnswer: PropTypes.func.isRequired,
+  question: PropTypes.object.isRequired
+};
 
 export default QuestionItem;
 

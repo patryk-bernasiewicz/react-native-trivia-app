@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, ImageBackground, StyleSheet } from 'react-native';
+import { ImageBackground, StyleSheet } from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import reducer from './reducer';

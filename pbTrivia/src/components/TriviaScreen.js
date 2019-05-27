@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { AllHtmlEntities as Entities } from 'html-entities';
 
@@ -11,7 +11,9 @@ import QuestionItem from './QuestionItem';
 class TriviaScreen extends Component {
   constructor(props) {
     super(props);
+  }
 
+  componentDidMount() {
     this.props.dispatch(fetchQuestions());
   }
 
