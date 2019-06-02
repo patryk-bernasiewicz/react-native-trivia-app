@@ -20,3 +20,5 @@ The store stores information about our questions, if the game is started or ende
 The **TriviaScreen** displays all questions one by one and lets user press _True_ or _False_ as an answer to the given question. After answering all questions, user is presented back the **HelloScreen**, but this time with their results.
 
 If an error occurs (when the App can't reach the API), it's displayed on **HelloScreen** under the _Start Game_ button.
+
+![Screenshot](./pbTrivia/assets/screenshot.png)
